@@ -1,0 +1,20 @@
+<!-- navigation -->
+<launch>
+
+	<!--<arg name="custom_amcl_launch_file" default="$(find myrobot_teb_navigation)/launch/amcl.launch"/> 
+	    <include file="$(arg custom_amcl_launch_file)">
+	</include> 
+	 -->
+
+
+	<include file="$(find myrobot_description)/launch/gazebo.launch"/>
+
+	
+
+	<include file="$(find myrobot_teb_navigation)/launch/move_base.launch">
+	</include>
+
+	<node name="rviz" pkg="rviz" type="rviz" respawn="false"
+			args="-d $(find myrobot_teb_navigation)/rviz/teb_navigation_rviz.rviz"/>
+</launch>
+
