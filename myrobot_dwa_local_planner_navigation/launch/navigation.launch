@@ -1,0 +1,24 @@
+<!-- navigation -->
+<launch>
+
+	<arg name="custom_amcl_launch_file" default="$(find myrobot_dwa_local_planner_navigation)/launch/amcl.launch"/>
+
+
+	<include file="$(find myrobot_description)/launch/gazebo.launch"/>
+
+	<include file="$(arg custom_amcl_launch_file)">
+		<!--<arg name="base_link_name" value="chassis"/>
+		<arg name="map_file" value="$(find atom)/../maps/aws_house/map.yaml"/> -->
+	</include> 
+
+	<include file="$(find myrobot_dwa_local_planner_navigation)/launch/move_base.launch">
+		<arg name="base_frame_id" value="base_link"/>
+		<arg name="odom_topic" value="/odom" />
+		<arg name="odom_frame_id" value="odom"/>
+		<arg name="cmd_vel_topic" value="/cmd_vel" />
+		<arg name="custom_param_file" value="$(find myrobot_dwa_local_planner_navigation)/param/r200_costmap_params.yaml"/>
+	</include>
+
+	<node name="rviz" pkg="rviz" type="rviz" respawn="false"
+			args="-d $(find myrobot_dwa_local_planner_navigation)/rviz/navigation.rviz"/>
+</launch>
